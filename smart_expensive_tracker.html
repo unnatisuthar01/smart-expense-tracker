@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | Smart Expense Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="">
+
+<style>
+/* ---------- Animated Gradient Background ---------- */
+* {
+    margin: 0;
+    padding:0;
+   box-sizing: border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background: radial-gradient(circle at top,#4e74ff,#8c52ff,#4be1ec);
+  background-size:280% 280%;
+  animation:bgFlow 10s infinite alternate ease-in-out;
+  color:white;
+  padding-top:40px;
+}
+@keyframes bgFlow{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+  width:100%;
+  padding:15px 30px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.4);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.logo{font-size:24px;font-weight:600;}
+
+.navbar ul{
+  list-style:none;
+  display:flex;
+  gap:15px;
+  flex-wrap: wrap;
+   justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+}
+.navbar ul li a{
+  text-decoration:none;
+  color:white;
+  border-radius:8px;
+  transition:.3s;
+  font-weight:500;
+  white-space: nowrap;
+  font-size: 14px;
+  padding: 6px 10px;
+}
+
+.navbar ul li a:hover, 
+.navbar ul li a.active{
+  background:rgba(255,255,255,0.45);
+  color:black;
+}
+
+/* ---------- MAIN CARD ---------- */
+.container{
+  max-width:900px;
+  margin:90px auto 30px;
+  background:rgba(255,255,255,0.13);
+  backdrop-filter:blur(15px);
+  padding:30px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,0.45);
+  box-shadow:0 0 25px rgba(0,0,0,.25);
+  animation:fadeIn 1.2s ease;
+  width: 90%;
+}
+
+/* fade animation */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ---------- Titles ---------- */
+h1{
+  font-size:2.2rem;
+  text-align:center;
+  margin-top:0;
+  text-shadow:0 0 12px rgba(255,255,255,.7);
+}
+h2{
+  text-align:center;
+}
+
+/* ---------- Expense Form ---------- */
+.expense-form{
+  text-align:center;
+  margin-top:15px;
+}
+.expense-form input{
+  padding:12px;
+  font-size:15px;
+  margin:5px;
+  border-radius:8px;
+  border:none;
+  width:210px;
+  outline:none;
+}
+.expense-form button{
+  margin-top:15px;
+  padding:12px 25px;
+  border:none;
+  border-radius:10px;
+  background:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+.expense-form button:hover{
+  transform:translateY(-3px);
+  background:#ffe59e;
+}
+
+/* ---------- Expense List ---------- */
+#expenseList{
+  margin-top:25px;
+  padding-left:0;
+}
+#expenseList li{
+  list-style:none;
+  background:rgba(255,255,255,0.2);
+  padding:10px;
+  margin:6px auto;
+  border-radius:10px;
+  width:100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* ---------- Feature Cards ---------- */
+.tips-heading-box{
+  text-align:center;
+  font-size:1.9rem;
+  margin-top:35px;
+  text-shadow:0 0 9px rgba(255,255,255,.7);
+}
+.cards-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:center;
+  margin-top:15px;
+}
+.card{
+  width:240px;
+  padding:18px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.35);
+  text-align:center;
+  transition:.3s;
+  cursor:pointer;
+}
+.card:hover{transform:translateY(-5px);}
+.card i{font-size:28px;}
+.card p{font-size:.9rem; opacity:.9;}
+
+/* ---------- Info Text ---------- */
+.info-text{
+  max-width:700px;
+  margin:20px auto;
+  padding:18px;
+  text-align:center;
+}
+
+
+/* ---------- MODAL POPUP FIX FOR PERFECT CENTER ---------- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: none;
+
+  /* centers perfectly */
+  justify-content: center;
+  align-items: center;
+
+  z-index: 2000;
+  overflow: hidden;
+}
+
+.modal-content {
+  max-width: 75vw;
+  max-height: 75vh;
+  border-radius: 15px;
+  object-fit: contain;
+  
+  /* ✨ this line centers image inside flex */
+  margin: auto;
+}
+
+/* close button same */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 3000;
+}
+
+/* --- SMART GUIDE SECTION --- */
+.guide-section{
+  margin:40px auto;
+  max-width:950px;
+  text-align:center;
+}
+.guide-title{
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:22px;
+}
+
+/* --- CARDS --- */
+.guide-cards{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:22px;
+}
+.guide-card{
+  width:260px;
+  padding:22px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(255,255,255,0.35);
+  color:white;
+  cursor:pointer;
+  transition:0.35s;
+  box-shadow:0 8px 25px rgba(0,0,0,0.25);
+}
+.guide-card:hover{
+  transform:translateY(-8px);
+  background:rgba(255,255,255,0.28);
+  box-shadow:0 12px 28px rgba(255,255,255,0.35);
+}
+.guide-card .icon{
+  font-size:42px;
+  margin-bottom:10px;
+}
+.guide-card h3{
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.guide-card p{
+  font-size:15px;
+  opacity:0.9;
+}
+
+/* Edit Button */
+.edit-btn {
+    background:#4CAF50;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    font-size:15px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:600;
+}
+.edit-btn:hover {
+    background:#45a049;
+    transform:scale(1.08);
+    box-shadow:0 4px 10px rgba(76,175,80,0.4);
+}
+
+/* Delete Button */
+.delete-btn {
+    background:#ff4d4d;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    font-size:15px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:600;
+}
+.delete-btn:hover {
+    background:#e60000;
+    transform:scale(1.08);
+    box-shadow:0 4px 10px rgba(255,77,77,0.4);
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">💰 Smart Expense Tracker</div>
+  <ul>
+    <li><a href="#" class="active">🏠 Home</a></li>
+    <li><a href="analytics.html">📊 Analytics</a></li>
+    <li><a href="budget.html">🏷️budget</a></li>
+    <li><a href="about.html">ℹ️ About</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<div class="container">
+  <h1><i class="fa-solid fa-wallet"></i> Track Your Daily Expenses Easily</h1>
+
+  <div class="expense-form">
+    <input type="text" id="expenseName" placeholder="Expense Name">
+    <input type="number" id="expenseAmount" placeholder="Amount ₹">
+    <input type="date" id="expenseDate"><br>
+    <button onclick="addExpense()">Add Expense</button>
+  </div>
+
+  <h2>Total Spent: <span id="totalAmount">₹0</span></h2>
+  <ul id="expenseList"></ul>
+</div>
+
+<!-- FEATURE CARDS -->
+<h2 class="tips-heading-box">✨ Smart Spending Guide</h2>
+</br>
+
+  <div class="guide-cards">
+
+    <!-- 🧠 Money Mood Meter -->
+    <div class="guide-card" onclick="goToMood()">
+      <div class="icon">🧠</div>
+      <h3>Money Mood Meter</h3>
+      <p>Track emotions with spending — पता करो किस mood में ज्यादा खर्च करते हो!</p>
+    </div>
+
+    <!-- 🪙 Coin Jar Round-Off Savings -->
+    <div class="guide-card" onclick="goToCoinJar()">
+      <div class="icon">🪙</div>
+      <h3>Coin Jar Savings</h3>
+      <p>हर खर्च पर बची हुई राशि को auto-save करो — छोटी savings → बड़ा असर!</p>
+    </div>
+
+    <!-- 🎯 Budget Goals -->
+    <div class="guide-card" onclick="goToBudget()">
+      <div class="icon">🎯</div>
+      <h3>Budget Goals</h3>
+      <p>Monthly budget सेट करो और savings को track करो — target achieve करो!</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="info-text">
+  <p>"Every expense counts — start small, stay consistent, see the difference!"</p>
+</div>
+
+<!-- 🔥 MODAL HTML (ADDED) -->
+<div id="imgModal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img id="popupImage" class="modal-content">
+</div>
+
+<!-- SCRIPTS -->
+<script>
+function showImage(imgSrc){
+  document.getElementById('popupImage').src = imgSrc;
+  document.getElementById('imgModal').style.display = "flex";
+}
+function closeModal(){
+  document.getElementById('imgModal').style.display = "none";
+}
+</script>
+
+<script src="s_e_p.js"></script>
+</body>
+</html>

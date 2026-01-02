@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>📊 Analytics | Smart Expense Tracker</title>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- GLOBAL & BG ---------- */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+  background: radial-gradient(circle at top,#4e74ff,#8c52ff,#4be1ec);
+  background-size:300% 300%;
+  animation:bgMove 10s infinite alternate ease-in-out;
+  color:white;
+  padding-top:60px;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+  width:100%;
+  padding:14px 30px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.4);
+  position:sticky;top:0;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-size:22px;font-weight:700;}
+
+.navbar ul{display:flex;list-style:none;gap:15px;}
+.navbar ul li a{
+  text-decoration:none;color:white;
+  padding:6px 12px;font-weight:500;border-radius:8px;
+  transition:.3s;white-space:nowrap;
+}
+.navbar ul li a:hover,
+.navbar ul li a.active{
+  background:rgba(255,255,255,0.45);
+  color:black;
+}
+
+/* ---------- MAIN BOX ---------- */
+.analytics-container{
+  max-width:900px;width:90%;
+  margin:40px auto;
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.13);
+  border:1px solid rgba(255,255,255,0.45);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 25px rgba(0,0,0,.25);
+  animation:fadeIn 1.2s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.title{
+  font-size:2rem;text-shadow:0 0 12px rgba(255,255,255,.7);
+  text-align:center;font-weight:700;
+}
+.subtitle{ text-align:center;font-weight:300;margin-bottom:20px; }
+
+/* ---------- CARDS ---------- */
+.card-container{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:20px;
+  margin-top:15px;
+}
+.card{
+  width:240px;padding:20px;border-radius:15px;
+  text-align:center;font-weight:600;font-size:18px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.35);
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 15px rgba(0,0,0,.25);
+  transition:.3s;
+}
+.card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.22);}
+
+/* ---------- LIMIT BOX ---------- */
+.limit-box{text-align:center;margin-top:25px;}
+.limit-box input, .limit-box button{
+  padding:10px;font-size:16px;border-radius:8px;margin-top:10px;border:none;
+}
+.limit-box input{width:200px;}
+.limit-box button{
+  background:white;color:black;font-weight:600;cursor:pointer;
+  transition:.3s;
+}
+.limit-box button:hover{transform:scale(1.05);background:#ffe59e;}
+
+/* ---------- INSIGHT ---------- */
+.insight{text-align:center;margin:15px;font-size:18px;font-weight:500;}
+.ok::before{content:"✨ ";color:#00ffa7;}
+.warn::before{content:"🚨 ";color:#ff6b81;}
+
+/* ---------- EXPENSE LIST BOX ---------- */
+.expense-list-box{
+  margin-top:20px;
+  background:rgba(255,255,255,0.12);
+  padding:15px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.3);
+  backdrop-filter:blur(6px);
+}
+.expense-item{
+  padding:8px;margin:6px auto;
+  background:rgba(255,255,255,0.25);
+  width:100%;border-radius:10px;
+  font-size:15px;
+}
+
+/* ---------- CHARTS ---------- */
+canvas{
+  background:rgba(255,255,255,0.12);
+  padding:20px;border-radius:18px;
+  margin-top:25px;box-shadow:0 0 18px rgba(0,0,0,.3);
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">💰 Smart Expense Tracker</div>
+  <ul>
+    <li><a href="smart_expensive_tracker.html">🏠 Home</a></li>
+    <li><a class="active" href="#">📊 Analytics</a></li>
+    <li><a href="budget.html">🏷️ budget</a></li>
+    <li><a href="about.html">ℹ️ About</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN SECTION -->
+<div class="analytics-container">
+  <h2 class="title">📊 Analytics Dashboard</h2>
+  <p class="subtitle">Track • Control • Save — Your Expenses in One Place</p>
+
+  <!-- TOTAL + HIGHEST -->
+  <div class="card-container">
+    <div class="card" id="totalExpense">Total Expense: ₹0</div>
+    <div class="card" id="highestExpense">Highest Expense: ₹0</div>
+  </div>
+
+  <!-- LIMIT -->
+  <div class="limit-box">
+    <label><b>💸 Set Monthly Limit (₹):</b></label><br>
+    <input type="number" id="limitInput" placeholder="Enter limit">
+    <button onclick="setLimit()">Save</button>
+    <div id="limitStatus"></div>
+  </div>
+
+  <!-- DOM INSIGHT -->
+  <p class="insight" id="insightText">Loading insights...</p>
+
+  <!-- EXPENSE LIST -->
+  <div class="expense-list-box">
+    <h3>📝 All Recorded Expenses</h3>
+    <div id="expenseAnalyticsList"></div>
+  </div>
+
+  <!-- CHARTS -->
+  <canvas id="weeklyChart"></canvas>
+  <canvas id="monthlyChart"></canvas>
+</div>
+
+<script>
+/* ===== FETCH EXPENSES ===== */
+let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+
+/* ===== TOTALS ===== */
+let total = expenses.reduce((sum,e)=>sum + parseFloat(e.amount), 0);
+let highest = expenses.length ? Math.max(...expenses.map(e=>parseFloat(e.amount))) : 0;
+
+document.getElementById("totalExpense").innerText = "Total Expense: ₹" + total;
+document.getElementById("highestExpense").innerText = "Highest Expense: ₹" + highest;
+
+/* ===== WEEKLY TOTALS ===== */
+let weeklyTotals=[0,0,0,0,0,0,0];
+expenses.forEach(e=>{
+  let d=new Date(e.date);
+  let day=d.getDay();
+  let idx=day===0?6:day-1;
+  weeklyTotals[idx]+=parseFloat(e.amount);
+});
+
+/* ===== MONTH 4 WEEKS ===== */
+let monthlyWeeks=[0,0,0,0];
+expenses.forEach(e=>{
+  let week=Math.ceil(new Date(e.date).getDate()/7)-1;
+  if(week<4) monthlyWeeks[week]+=parseFloat(e.amount);
+});
+
+/* ===== LIMIT ===== */
+let monthlyLimit = JSON.parse(localStorage.getItem("limit"))||0;
+
+function setLimit(){
+  monthlyLimit=parseInt(document.getElementById("limitInput").value);
+  localStorage.setItem("limit",monthlyLimit);
+  showLimitStatus();
+}
+function showLimitStatus(){
+  if(monthlyLimit===0)return;
+  if(total>monthlyLimit)
+    document.getElementById("limitStatus").innerHTML=`<p class="warn">Limit Exceeded by ₹${total-monthlyLimit}</p>`;
+  else
+    document.getElementById("limitStatus").innerHTML=`<p class="ok">You're within limit — Great!</p>`;
+}
+showLimitStatus();
+
+/* ===== INSIGHTS ===== */
+function spendingInsight(total){
+  if(total===0)return "✨ Start adding expenses & track progress!";
+  if(monthlyLimit>0 && total>monthlyLimit)return "🚨 Slow down! You crossed your spending limit!";
+  if(total>10000)return "🔥 You're spending high this month!";
+  if(total>5000)return "⚠ Try reducing outside food & travel!";
+  return "💵 Excellent! Spending under control.";
+}
+document.getElementById("insightText").innerText=spendingInsight(total);
+
+/* ===== EXPENSE LIST ===== */
+let listBox=document.getElementById("expenseAnalyticsList");
+expenses.forEach(e=>{
+  let div=document.createElement("div");
+  div.className="expense-item";
+  div.innerText=`${e.date} — ₹${e.amount} — ${e.name}`;
+  listBox.appendChild(div);
+});
+
+/* ---- Weekly Chart ---- */
+new Chart(document.getElementById("weeklyChart"),{
+  type:"bar",
+  data:{
+    labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    datasets:[{
+      label:"Weekly Expense (₹)",
+      data:weeklyTotals,
+      backgroundColor:"rgba(255,107,129,1)",
+      borderWidth: 2,
+      borderRadius: 6
+    }]
+  }
+});
+
+/* ---- Monthly Chart ---- */
+new Chart(document.getElementById("monthlyChart"),{
+  type:"bar",
+  data:{
+    labels:["Week 1","Week 2","Week 3","Week 4"],
+    datasets:[{
+      label:"Monthly Expense (₹)",
+      data:monthlyWeeks,
+      backgroundColor:"rgba(255,107,129,1)",
+      borderWidth: 2,
+      borderRadius: 6
+    }]
+  }
+});
+
+
+
+
+</script>
+
+</body>
+</html>

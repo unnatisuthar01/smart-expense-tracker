@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Smart Expense Tracker</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* -------------- Background & Animation -------------- */
+body{
+    margin:0; font-family:'Poppins',sans-serif;
+    background: radial-gradient(circle at top,#4e74ff,#8c52ff,#4be1ec);
+    background-size:250% 250%;
+    animation:bgMove 10s infinite alternate ease-in-out;
+    color:white;
+}
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    100%{background-position:100% 50%;}
+}
+
+/* -------------- Container Glass Box -------------- */
+.about-box{
+    width:85%; max-width:900px;
+    margin:70px auto;
+    padding:35px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.13);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.35);
+    box-shadow:0 0 25px rgba(0,0,0,.25);
+    animation:fadeIn 1.2s ease;
+}
+
+/* Fade effect */
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* -------------- Header -------------- */
+.title{
+    text-align:center;
+    font-size:2.6rem;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:-5px;
+    text-shadow:0 0 12px rgba(255,255,255,.7);
+}
+.tagline{
+    text-align:center;
+    font-size:1.2rem;
+    margin-bottom:30px;
+    color:#fbf8ff;
+    height:28px;
+}
+
+/* -------------- Sections -------------- */
+.section{margin:30px 0;}
+.section h2{
+    font-size:1.5rem;
+    margin-bottom:10px;
+    display:flex; gap:10px; align-items:center;
+    font-weight:600;
+}
+.section p, .section ul li{opacity:.95; font-size:1rem;}
+ul li{margin:6px 0;}
+
+/* -------------- Little feature cards -------------- */
+.feature-cards{
+  display:flex; flex-wrap:wrap;
+  gap:15px; justify-content:center; margin-top:15px;
+}
+.card{
+  width:230px; padding:18px;
+  text-align:center;
+  border-radius:15px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.25);
+  backdrop-filter:blur(5px);
+  transition:.3s;
+}
+.card i{font-size:30px;margin-bottom:10px;}
+.card span{font-size:17px;font-weight:600;}
+.card p{font-size:15px;margin:3px 0;color:#eee;}
+.card:hover{
+  transform:translateY(-6px);
+  background:rgba(255,255,255,0.22);
+}
+
+/* -------------- Thank You Box -------------- */
+.thank{
+    margin-top:40px;
+    text-align:center;
+    font-size:1.1rem;
+    padding:15px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.18);
+    border:1px solid rgba(255,255,255,.4);
+    font-weight:500;
+    text-shadow:0 0 8px rgba(255,255,255,.5);
+}
+
+/* -------------- Back Button -------------- */
+.back-btn{
+    display:block; width:max-content; margin:28px auto 5px;
+    padding:12px 25px; background:rgba(255,255,255,0.30);
+    border-radius:30px; color:white; text-decoration:none;
+    font-size:1rem; transition:.3s;
+}
+.back-btn:hover{
+    background:rgba(255,255,255,0.45);
+    transform:translateY(-3px);
+}
+</style>
+</head>
+<body>
+
+<div class="about-box">
+
+    <div class="title"><i class="fa-solid fa-coins"></i> Smart Expense Tracker</div>
+    <div class="tagline" id="typeTag"></div>
+
+    <div class="feature-cards">
+        <div class="card"><i class="fa-solid fa-chart-line"></i><span>Analytics</span><p>Understand spending flow</p></div>
+        <div class="card"><i class="fa-solid fa-tags"></i><span>Categories</span><p>Organize beautifully</p></div>
+        <div class="card"><i class="fa-solid fa-shield"></i><span>Secure</span><p>Your data stays with you</p></div>
+    </div>
+
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Our Goal</h2>
+        <p>Aapke daily expenses ko track, analyze & control karna simple aur beautiful banana — taki har rupiya ka hisaab clear dikhe.</p>
+    </div>
+
+    <div class="section">
+        <h2><i class="fa-solid fa-star"></i> Why is it special?</h2>
+        <ul>
+            <li>✨ Smooth UI + glassmorphism design</li>
+            <li>📌 Auto-store data — no account required</li>
+            <li>📊 Charts that tell your money story</li>
+            <li>🏷️ Custom categories + icons</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2><i class="fa-solid fa-lightbulb"></i> Our Vision</h2>
+        <p>"Money ko samajhna mushkil nahi — bus sahi tool chahiye."</p>
+    </div>
+
+    <div class="thank">
+        ✨ **Thank you for visiting this page — your time matters.**  
+        <br>Hope this app helps you control your spending beautifully 💙
+    </div>
+
+    <a href="smart_expensive_tracker.html" class="back-btn">⬅ Back to Home</a>
+
+</div>
+
+<script>
+/* ----- Typing Animation in Tagline ----- */
+const text = `"Manage money beautifully — because every rupee tells a story."`;
+let i = 0;
+function typeEffect(){
+    if(i < text.length){
+        document.getElementById("typeTag").textContent += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 40);
+    }
+}
+typeEffect();
+</script>
+
+</body>
+</html>

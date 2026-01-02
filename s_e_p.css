@@ -1,0 +1,308 @@
+/* ===== RESET & BASE =====*/ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg,#9ac3ff,#c9eaff);
+    min-height:200vh;
+    padding-top: 60px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1450a3;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #1450a3;
+    font-size: 16px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover,
+.navbar ul li a.active {
+    background: #0056d6;
+    color:white;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    width: 60%;
+    max-width: 700px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin: 0 auto;              
+    margin-top: 10px;  
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+    text-align: center;
+    font-size: 25px;
+    color: #1450a3;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* ===== FORM FIXED CENTER LAYOUT ===== */
+.expense-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.expense-form input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #d6dce5;
+    font-size: 15px;
+}
+
+/* ===== CENTER ADD EXPENSE BUTTON ===== */
+.expense-form button {
+    width: 200px;
+    padding: 12px;
+    font-size: 17px;
+    background-color: #1450a3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.expense-form button:hover {
+    background-color: #0e3a78;
+    transform: scale(1.05);
+}
+
+/* ===== EXPENSE LIST ===== */
+#expenseList {
+    list-style: none;
+}
+
+li {
+    background: #eef3fb;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+li:hover {
+    background: #dce8fd;
+    transform: translateY(-3px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* ===== EXPENSE ITEM BUTTONS ===== */
+.expense-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 6px 12px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    transition: 0.3s;
+}
+
+/* Edit Button */
+.edit-btn {
+    background-color: #0074D9;
+}
+.edit-btn:hover {
+    background-color: #005bb5;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #d11a2a;
+}
+.delete-btn:hover {
+    background-color: #a30f1c;
+}
+
+/* Hover effect */
+.edit-btn:hover, .delete-btn:hover {
+    transform: scale(1.05);
+}
+
+/* ==== SMOOTH ELASTIC BOUNCE ==== */
+/*.bounce-effect {
+    animation: elasticBounce 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}*/
+
+@keyframes liftUp {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translateY(-25px);  /* pehle -12px tha → upar jyada jayega */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-15px); /* final position */
+  }
+}
+
+/* speed thodi smooth */
+.container.animate {
+  animation: liftUp 0.7s ease-out forwards; /* time badhaya 0.6s → 0.7s }*/
+}
+
+.tips-heading-box {
+   
+  display: block; /* heading ko box ke andar fit karta */
+  width: 100%;
+  background: linear-gradient(90deg, #ff8c00, #ff4da6); 
+  color: white;                       /* text white so gradient pop kare */
+  padding: 12px 25px;
+  border-radius: 12px;                /* smooth box corners */
+  font-size: 28px;
+  font-weight: 800;
+  margin: 30px auto 15px auto;        /* top space + center */
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.25); /* attractive shadow */
+}
+
+/* hover effect — classy glow */
+.tips-heading-box:hover {
+  box-shadow: 0px 6px 15px rgba(255, 140, 0, 0.45);
+  transform: translateY(-3px);        /* little lift effect */
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+
+.info-text {
+    text-align: center;             /* center text */
+    margin: 20px auto 0;            /* top 20px, center horizontally */
+    font-size: 15px;                
+    color: #333;                    
+    line-height: 1.5;  
+    font-family: 'Segoe UI', 'Roboto', sans-serif;           
+    font-style: oblique;             
+    background: #eef3fb;            /* light box background */
+    padding: 15px 25px;             /* inner spacing */
+    border-radius: 8px;/* rounded corners*/ 
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);  /* subtle shadow */
+    max-width: 750px;               /* width limit */
+}
+
+
+/* optional hover effect */
+.info-text:hover {
+    background: #dce8fd;
+    transform: translateY(-2px);
+    transition: 0.3s;
+}
+
+/* responsive */
+@media (max-width: 500px) {
+    .info-text {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}
+
+.info-text ul {
+    text-align: left;   /* list items left align */
+    padding-left: 20px;
+    margin: 5px 0 0 0;
+}
+
+.info-text li {
+    margin-bottom: 4px;
+}
+
+
+.analytics {
+        max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.analytics-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.analytics-box p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+canvas {
+    margin-top: 20px;
+}
+
+.chart-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.chart-buttons button {
+    margin: 0 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.chart-buttons button:hover {
+    background-color: #0056b3;
+}
