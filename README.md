@@ -7,34 +7,35 @@ Built as part of my **BCA 3rd Year** practical learning journey!
 ---
 
 ## 🚀 Live Demo
-🔗 **[Yahan apne GitHub Pages ka live link daalo (e.g., https://unantisuthar01.github.io/smart-expense-tracker)]**
+🔗 **https://unantisuthar01.github.io/smart-expense-tracker**
 
 ---
 
 ## ✨ Key Features
 
-*   **Add & Track Expenses:** Easily log your daily expenses with titles, amounts, and specific categories (Food, Travel, Entertainment, Shopping, etc.).
-*   **Persistent Storage (LocalStorage):** Your data is saved locally in your browser! Refreshing the page won't delete your logged expenses.
-*   **Smart Budget Alert:** Set a monthly budget limit. The application will dynamically warn you when your expenses cross **80%** of your target limit.
-*   **Visual Analytics:** Interactive charts (using Chart.js) that display category-wise breakdowns of your spending habits.
-*   **Fully Responsive:** A clean, modern UI that works smoothly on both desktops and mobile devices.
+* **Add & Track Expenses:** Easily log your daily expenses with titles, amounts, and specific categories (Food, Travel, Entertainment, Shopping, etc.).
+* **Persistent Storage (LocalStorage):** Your data is saved locally in your browser! Refreshing the page won't delete your logged expenses.
+* **Smart Budget Alert:** Set a monthly budget limit. The application will dynamically warn you when your expenses cross **80%** of your target limit.
+* **Visual Analytics:** Interactive charts (using Chart.js) that display category-wise breakdowns of your spending habits.
+* **Fully Responsive:** A clean, modern UI with a beautiful glassmorphic theme that works smoothly on both desktops and mobile devices.
 
 ---
 
 ## 🛠️ Tech Stack Used
 
-*   **Frontend:** HTML5, CSS3, JavaScript (ES6)
-*   **Libraries:** Chart.js (for beautiful data visualizations)
-*   **Storage:** Browser LocalStorage
+* **Frontend:** HTML5, CSS3 (Custom Animations & Glassmorphism)
+* **JavaScript:** Vanilla JS (ES6+, DOM Manipulation)
+* **Libraries:** Chart.js (for beautiful data visualizations & Pie/Bar charts)
+* **Storage:** Browser LocalStorage (for offline data persistence)
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-├── index.html         # Main dashboard / Home page
-├── budget.html        # Page to set and manage monthly limits
-├── analytics.html     # Visual representation & graphs
-├── about.html         # About the developer & project info
-├── s_e_p.css          # Core styling sheet
-└── s_e_p.js           # JavaScript logic (DOM manipulation & LocalStorage)
+├── index.html         # Main dashboard / Home page (Add & delete expenses)
+├── budget.html        # Page to set, view, and manage monthly budget limits
+├── analytics.html     # Visual representation & dynamic graphs using Chart.js
+├── about.html         # About the developer & modern typing animation introduction
+├── style.css          # Core global styling sheet (Glassmorphism layout)
+└── script.js          # Main JavaScript logic (Data calculations & LocalStorage sync)
