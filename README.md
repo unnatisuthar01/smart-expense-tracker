@@ -7,7 +7,7 @@ Built as part of my **BCA 3rd Year** practical learning journey!
 ---
 
 ## 🚀 Live Demo
-🔗 **https://unantisuthar01.github.io/smart-expense-tracker**
+🔗** https://unnatisuthar01.github.io/smart-expense-tracker/**
 
 ---
 
